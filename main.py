@@ -42,8 +42,10 @@ while current_score.score <= 26 and keep_playing:
             treated_input = "Rio Grande\n do Norte"
         else:
             treated_input = user_input
-        writer.go_print((int(data['X'][data['Estado'] == user_input]), int(data['Y'][data['Estado'] == user_input])), treated_input)
+        current_state = data[data['Estado'] == treated_input]
+        writer.go_print((int(current_state.X), int(current_state.Y)), treated_input)
         current_score.update_score()
+
 
 if current_score.score == 27:
     current_score.congrats()
