@@ -25,6 +25,8 @@ data = pandas.read_csv("brazil_coordinates.csv")
 list_of_states = data['Estado'].to_list()
 
 missing_states = list_of_states[:]
+# guessed states only for method 2 for creating the list/file of missing states - day 26 challenge
+guessed_states = []
 keep_playing = True
 while current_score.score <= 26 and keep_playing:
     time.sleep(0.1)
@@ -37,7 +39,12 @@ while current_score.score <= 26 and keep_playing:
         screen.clear()
         screen.bgcolor('black')
         current_score.good_bye()
+        # method 2 for creating the list/file of missing states - day 26 challenge
+        missing_states_method2 = [state for state in list_of_states if state not in guessed_states]
     elif user_input in list_of_states:
+        # method 2 for creating the list/file of missing states - day 26 challenge
+        guessed_states.append(user_input)
+        # regular day 25 code from here
         if user_input == "Rio Grande do Norte":
             treated_input = "Rio Grande\n do Norte"
         else:
@@ -54,10 +61,15 @@ if current_score.score == 27:
 missing_states_dict = {
     'Estado':missing_states
 }
-
 missing_states_df = pandas.DataFrame(missing_states_dict)
 missing_states_df.to_csv("missing_states.csv")
-print(missing_states_df)
+
+# method 2 for creating the list/file of missing states - day 26 challenge
+missing_states_method2_dict = {
+    'Estado':missing_states_method2
+}
+missing_states_method2_df = pandas.DataFrame(missing_states_method2_dict)
+missing_states_method2_df.to_csv("missing_states_method2.csv")
 
 screen.exitonclick()
 
